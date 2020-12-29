@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
+/** @jsxImportSource @emotion/react */
+import { css, jsx } from '@emotion/react/macro'
 
 /**
  * Functional react compoent for congratulatory message.
@@ -12,7 +14,7 @@ const Congrats =  (props) => {
         if(props.success){
             return(
             <div data-test="component-congrats">
-                <span data-test="congrats-message">
+                <span data-test="congrats-message" css={css`background:lawngreen;padding: 1em;`}>
                     Congratulations! You guessed the word!
                 </span>
             </div>)
