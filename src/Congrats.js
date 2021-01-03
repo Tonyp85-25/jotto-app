@@ -12,7 +12,13 @@ import { css } from '@emotion/react/macro'
 const Congrats = props => {
     if (props.success) {
         return (
-            <div data-test="component-congrats">
+            <div
+                data-test="component-congrats"
+                css={css`
+                    margin-top: 3em;
+                    margin-bottom: 3em;
+                `}
+            >
                 <span
                     data-test="congrats-message"
                     css={css`
