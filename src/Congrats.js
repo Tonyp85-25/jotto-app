@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 import PropTypes from 'prop-types'
 /** @jsxImportSource @emotion/react */
-import { css, jsx } from '@emotion/react/macro'
+import { css } from '@emotion/react/macro'
 
 /**
  * Functional react compoent for congratulatory message.
@@ -9,22 +9,24 @@ import { css, jsx } from '@emotion/react/macro'
  * @param {object} props - React props
  * @returns {JSX.Element} - Renedered component (or null if success props is false)
  */
-const Congrats =  (props) => {
-    
-        if(props.success){
-            return(
+const Congrats = props => {
+    if (props.success) {
+        return (
             <div data-test="component-congrats">
-                <span data-test="congrats-message" css={css`background:lawngreen;padding: 1em;`}>
+                <span
+                    data-test="congrats-message"
+                    css={css`
+                        background: lawngreen;
+                        padding: 1em;
+                    `}
+                >
                     Congratulations! You guessed the word!
                 </span>
-            </div>)
-            
-        } else{
-            return (
-                <div data-test="component-congrats"/>
-            )
-        }
-    
+            </div>
+        )
+    } else {
+        return <div data-test="component-congrats" />
+    }
 }
 
 Congrats.propTypes = {
