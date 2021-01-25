@@ -21,7 +21,10 @@ const appStyle = css`
     letter-spacing: 3px;
 `
 
-class App extends Component {
+export class UnconnectedApp extends Component {
+    componentDidMount() {
+        this.props.getSecretWord()
+    }
     render() {
         return (
             <div css={appStyle}>
@@ -46,4 +49,4 @@ const mapsStateToProps = state => {
     return { success, guessedWords, secretWord }
 }
 
-export default connect(mapsStateToProps, { getSecretWord })(App)
+export default connect(mapsStateToProps, { getSecretWord })(UnconnectedApp)

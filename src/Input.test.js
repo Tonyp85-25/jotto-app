@@ -2,7 +2,7 @@ import React from 'react'
 import { shallow } from 'enzyme'
 
 import { findByTestAttr, storeFactory } from '../test/testUtils'
-import Input from './Input'
+import Input, { Uninput } from './Input'
 
 /**
  * Factory function to create a ShallowWrapper for the GuessedWords component
@@ -62,3 +62,15 @@ describe('render', () => {
 })
 
 describe('update state', () => {})
+
+describe('guessword action creator call', () => {
+    test('guess word action creator is called on click', () => {
+        const guessWordMock = jest.fn()
+
+        const wrapper = shallow(<Uninput guessWord={guessWordMock} success={false} />)
+        const submitBtn = findByTestAttr(wrapper, 'submit-button')
+        submitBtn.simulate('click')
+        const guessWordMockCalls = guessWordMock.mock.calls.length
+        expect(guessWordMockCalls).toBe(1)
+    })
+})
