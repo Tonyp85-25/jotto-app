@@ -15,7 +15,6 @@ const setup = (initialState = {}) => {
     const wrapper = shallow(<Input store={store} />)
         .dive()
         .dive()
-    console.log(wrapper.debug())
     return wrapper
 }
 
@@ -64,13 +63,28 @@ describe('render', () => {
 describe('update state', () => {})
 
 describe('guessword action creator call', () => {
-    test('guess word action creator is called on click', () => {
-        const guessWordMock = jest.fn()
+    let guessWordMock
+    let wrapper
+    const guessedWord = 'train'
+    beforeEach(() => {
+        guessWordMock = jest.fn()
+        const props = {
+            guessWord: guessWordMock,
+        }
+        wrapper = shallow(<Uninput {...props} />)
+        //add value to input box
+        wrapper.setState({ currentGuess: guessedWord })
 
-        const wrapper = shallow(<Uninput guessWord={guessWordMock} success={false} />)
         const submitBtn = findByTestAttr(wrapper, 'submit-button')
-        submitBtn.simulate('click')
+        submitBtn.simulate('click', { preventDefault() {} })
+    })
+    test('guess word action creator is called on click', () => {
         const guessWordMockCalls = guessWordMock.mock.calls.length
         expect(guessWordMockCalls).toBe(1)
+    })
+    test('calls guessedWord input value as argument', () => {
+        //calls represents an array of different calls with for each on, a list of args (here the first arg for the first call)
+        const guessedWordArg = guessWordMock.mock.calls[0][0]
+        expect(guessedWordArg).toBe(guessedWord)
     })
 })

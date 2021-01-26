@@ -3,14 +3,37 @@ import { connect } from 'react-redux'
 import { guessWord } from './actions'
 
 export class Uninput extends Component {
+    /**
+     * @method constructor
+     * @param {object} props - Component props
+     * @returns {undefined}
+     */
+    constructor(props) {
+        super(props)
+        this.state = { currentGuess: null }
+        this.submitGuessedWord = this.submitGuessedWord.bind(this)
+    }
+    submitGuessedWord(evt) {
+        evt.preventDefault()
+        const guessedWord = this.state.currentGuess
+        if (guessedWord && guessedWord.length > 0) {
+            this.props.guessWord(guessedWord)
+        }
+    }
     render() {
         const contents = this.props.success ? null : (
             <form>
-                <input type="text" placeholder="enter guess" data-test="input-box" />
+                <input
+                    type="text"
+                    placeholder="enter guess"
+                    data-test="input-box"
+                    value={this.state.currentGuess}
+                    onChange={evt => this.setState({ currentGuess: evt.target.value })}
+                />
                 <button
                     data-test="submit-button"
                     type="submit"
-                    onClick={() => this.props.guessWord('train')}
+                    onClick={evt => this.submitGuessedWord(evt)}
                 >
                     Submit
                 </button>
