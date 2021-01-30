@@ -1,12 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react/macro'
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 //import logo from './logo.svg';
 
 //import './App.css';
 import GuessedWords from './GuessedWords'
 import Congrats from './Congrats'
+import Input from './Input'
+import { getSecretWord } from './actions'
 
 //#e46a6af5
 const appStyle = css`
@@ -18,7 +21,10 @@ const appStyle = css`
     letter-spacing: 3px;
 `
 
-class App extends Component {
+export class UnconnectedApp extends Component {
+    componentDidMount() {
+        this.props.getSecretWord()
+    }
     render() {
         return (
             <div css={appStyle}>
@@ -31,13 +37,16 @@ class App extends Component {
                 >
                     Jotto
                 </h1>
-                <Congrats success={true} />
-                <GuessedWords
-                    guessedWords={[{ guessedWord: 'train', letterMatchCount: 3 }]}
-                />
+                <Congrats success={this.props.success} />
+                <Input />
+                <GuessedWords guessedWords={this.props.guessedWords} />
             </div>
         )
     }
 }
+const mapsStateToProps = state => {
+    const { success, guessedWords, secretWord } = state
+    return { success, guessedWords, secretWord }
+}
 
-export default App
+export default connect(mapsStateToProps, { getSecretWord })(UnconnectedApp)
