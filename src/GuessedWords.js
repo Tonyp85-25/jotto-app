@@ -12,40 +12,48 @@ const GuessedWords = props => {
     } else {
         const guessedWordsRows = props.guessedWords.map((word, index) => (
             <tr data-test="guessed-word" key={index}>
+                <td className="guess-index">{index + 1}</td>
                 <td>{word.guessedWord}</td>
                 <td>{word.letterMatchCount}</td>
             </tr>
         ))
         contents = (
-            <div data-test="guessed-words">
-                <h3>Guessed Words</h3>
-                <table
-                    css={css`
-                        margin: auto;
-                    `}
-                >
-                    <thead>
-                        <tr>
-                            <th
-                                css={css`
-                                    padding: 1em;
-                                    background: black;
-                                `}
-                            >
-                                Guess
-                            </th>
-                            <th
-                                css={css`
-                                    padding: 1em;
-                                    background: black;
-                                `}
-                            >
-                                Matching letters
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>{guessedWordsRows}</tbody>
-                </table>
+            <div>
+                <div data-test="guessed-words">
+                    <h3>Guessed Words</h3>
+                    <table
+                        css={css`
+                            margin: auto;
+                        `}
+                    >
+                        <thead>
+                            <tr>
+                                <th>Index</th>
+                                <th
+                                    css={css`
+                                        padding: 1em;
+                                        background: black;
+                                    `}
+                                >
+                                    Guess
+                                </th>
+                                <th
+                                    css={css`
+                                        padding: 1em;
+                                        background: black;
+                                    `}
+                                >
+                                    Matching letters
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>{guessedWordsRows}</tbody>
+                    </table>
+                </div>
+                <p data-test="total-guesses">
+                    Total guess:{' '}
+                    <span className="total-guess">{props.guessedWords.length}</span>
+                </p>
             </div>
         )
     }

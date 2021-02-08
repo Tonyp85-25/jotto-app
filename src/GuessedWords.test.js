@@ -61,4 +61,22 @@ describe('if there are words guessed', () => {
         const guessedWordNodes = findByTestAttr(wrapper, 'guessed-word')
         expect(guessedWordNodes.length).toBe(guessedWords.length)
     })
+
+    test('renders an index before each word', () => {
+        const guessIndex = wrapper.find('.guess-index')
+        expect(guessIndex.length).toBe(3)
+    })
+    test('adds the right index before each word', () => {
+        const secondIndex = wrapper.find('.guess-index').at(1)
+        expect(secondIndex.text()).toBe('2')
+    })
+    test('renders total guesses section', () => {
+        const totalGuesses = findByTestAttr(wrapper, 'total-guesses')
+        expect(totalGuesses.length).toBe(1)
+    })
+    test('displays the right total', () => {
+        const totalGuesses = wrapper.find('span.total-guess')
+        const guessedLength = guessedWords.length.toString()
+        expect(totalGuesses.text()).toBe(guessedLength)
+    })
 })
