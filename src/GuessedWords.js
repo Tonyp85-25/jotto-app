@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react/macro'
+import TotalGuess from './TotalGuess'
 
 const GuessedWords = props => {
     let contents
@@ -50,10 +51,7 @@ const GuessedWords = props => {
                         <tbody>{guessedWordsRows}</tbody>
                     </table>
                 </div>
-                <p data-test="total-guesses">
-                    Total guess:{' '}
-                    <span className="total-guess">{props.guessedWords.length}</span>
-                </p>
+                <TotalGuess guesses={props.guessedWords.length} />
             </div>
         )
     }

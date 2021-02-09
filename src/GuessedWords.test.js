@@ -70,13 +70,4 @@ describe('if there are words guessed', () => {
         const secondIndex = wrapper.find('.guess-index').at(1)
         expect(secondIndex.text()).toBe('2')
     })
-    test('renders total guesses section', () => {
-        const totalGuesses = findByTestAttr(wrapper, 'total-guesses')
-        expect(totalGuesses.length).toBe(1)
-    })
-    test('displays the right total', () => {
-        const totalGuesses = wrapper.find('span.total-guess')
-        const guessedLength = guessedWords.length.toString()
-        expect(totalGuesses.text()).toBe(guessedLength)
-    })
 })
