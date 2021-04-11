@@ -3,17 +3,24 @@ import React, {Component} from 'react'
 import './App.css';
 import GuessedWords from './GuessedWords';
 import Congrats from './Congrats'
+import Input from './Input'
 
-class App extends Component {
-  render(){
+function App() {
+
+  //TODO: get props from shared state
+  const success =false
+  const secretWord = 'party'
+  const guessedWords= []
+ 
     return (
       <div className="App" data-test='component-app' >
        <h1>Jotto</h1>
        <Congrats success={false} />
-       <GuessedWords guessedWords={[]}/>
+       <Input success={success} secretWord={secretWord}/>
+       <GuessedWords guessedWords={guessedWords}/>
       </div>
     );
-  }
+  
   
 }
 
