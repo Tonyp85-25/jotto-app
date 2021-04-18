@@ -1,10 +1,11 @@
 import {mount} from 'enzyme'
-import {findByTestAttr} from '../test/testUtils'
+import {findByTestAttr,storeFactory} from '../test/testUtils'
+import {Provider} from 'react-redux'
 import App from './App';
+import {getSecretWord as mockGetSecretWord} from './actions'
 
 // activate global mock to make sure getSecretWord does not make network call
 jest.mock('./actions')
-import {getSecretWord as mockGetSecretWord} from './actions'
 
 /**
  * Setup function for App component
@@ -12,7 +13,8 @@ import {getSecretWord as mockGetSecretWord} from './actions'
  */
 const setup = ()=>{
   // use mount because useEffect not called on 'shallow'
-    return mount(<App/>)
+    const store =storeFactory()
+  return mount(<Provider store={store}><App/></Provider>)
 }
 test('renders without errors', () => {
   const wrapper= setup()
