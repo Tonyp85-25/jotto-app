@@ -1,6 +1,7 @@
 import { checkPropTypes } from "prop-types"
-import {createStore} from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 import rootReducer from '../src/reducers'
+import { middlewares } from '../src/configureStore'
 
 /**
  * Return node(s) with the given data-test attribute
@@ -29,5 +30,5 @@ export const checkProps = (component,conformingProps) =>{
  * @returns {Store} - Redux Store
  */
 export const storeFactory = (initialState)=>{
-    return createStore(rootReducer,initialState)
+    return createStore(rootReducer,initialState,applyMiddleware(...middlewares))
 }
