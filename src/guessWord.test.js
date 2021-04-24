@@ -1,11 +1,12 @@
 import React from 'react'
 import {mount} from 'enzyme'
-
+import {Provider} from 'react-redux'
 import App from './App'
 
-import {findByTestAttr} from '../test/testUtils'
-//FUNCTIONNAL TESTS
-
+import {findByTestAttr,storeFactory} from '../test/testUtils'
+//FUNCTIONAL TESTS
+// activate global mock to make sure getSecretWord does not make network call
+jest.mock('./actions')
 /**
  * Create wrapper with specific initial conditions,
  * then submit a guess word of 'train'
@@ -13,8 +14,8 @@ import {findByTestAttr} from '../test/testUtils'
  * @returns {Wrapper} - Enzyme Wrapper of mounted App component
  */
 const setup = (state={})=>{
-    //TODO:apply state
-    const wrapper = mount(<App></App>)
+    const store = storeFactory(state)
+    const wrapper = mount(<Provider store={store}><App></App></Provider>)
 
     //add value to input box
     const inputBox = findByTestAttr(wrapper,'input-box')
@@ -27,7 +28,7 @@ const setup = (state={})=>{
     return wrapper
 }
 
-describe.skip('no words guessed', ()=>{
+describe('no words guessed', ()=>{
     let wrapper
     beforeEach(()=>{
         wrapper =setup({
@@ -43,7 +44,7 @@ describe.skip('no words guessed', ()=>{
     })
 })
 
-describe.skip('some words guessed', ()=>{
+describe('some words guessed', ()=>{
     let wrapper
     beforeEach(()=>{
         wrapper =setup({
@@ -59,12 +60,12 @@ describe.skip('some words guessed', ()=>{
     })
 })
 
-describe.skip('guess secret word', ()=>{
+describe('guess secret word', ()=>{
     let wrapper
     beforeEach(()=>{
         wrapper =setup({
             secretWord:'party',
-            success:true,
+            success:false,
             guessedWords:[{guessedWord:'agile', letterMatchCount:1}]
         }) 
         //add value to input box
@@ -80,8 +81,8 @@ describe.skip('guess secret word', ()=>{
         expect(GuessedWordsRows).toHaveLength(3)
     })
     test('displays congrats message',()=>{
-        const congratsMessage = findByTestAttr(wrapper, 'congrats-message')
-        expect(congratsMessage).toHaveLength(1)
+        const congrats= findByTestAttr(wrapper, 'component-congrats')
+        expect(congrats.text().length).toBeGreaterThan(0)
     })
     test('input component does not display',()=>{
         const inputBox = findByTestAttr(wrapper, 'input-box')
