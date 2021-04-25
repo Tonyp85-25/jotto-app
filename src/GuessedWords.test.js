@@ -63,5 +63,10 @@ describe('if there are words guessed', ()=>{
         const guessedWordNodes = findByTestAttr(wrapper,'guessed-word');
         expect(guessedWordNodes.length).toBe(guessedWords.length);
     });
+    test('displays right index before each row',()=>{
+        const guessed = guessedWords.length.toString()
+        const lastGuess = wrapper.find('.guess-index').last()
+        expect(lastGuess.text()).toBe(guessed)
+    })
     
 })

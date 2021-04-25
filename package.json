@@ -46,5 +46,8 @@
     "jest-enzyme": "^7.1.2",
     "moxios": "^0.4.0",
     "react-redux": "^7.2.3"
+  },
+  "jest": {
+    "resetMocks": false
   }
 }
