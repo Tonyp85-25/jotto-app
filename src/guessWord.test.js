@@ -88,4 +88,11 @@ describe('guess secret word', ()=>{
         const inputBox = findByTestAttr(wrapper, 'input-box')
         expect(inputBox.exists()).toBe(false)
     })
+    test('reset game on click',()=>{
+        const resetComp = findByTestAttr(wrapper, 'reset-component')
+        const button = resetComp.find('button')
+        button.simulate('click')
+        const GuessedWordsRows = findByTestAttr(wrapper, 'guessed-word')
+        expect(GuessedWordsRows).toHaveLength(0)
+    })
 })

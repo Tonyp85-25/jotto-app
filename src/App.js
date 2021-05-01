@@ -6,8 +6,10 @@ import GuessedWords from './GuessedWords';
 import Congrats from './Congrats'
 import Input from './Input'
 import TotalGuesses from './TotalGuesses'
+import Reset from './Reset'
 import {getSecretWord} from './actions'
 import {useDispatch} from 'react-redux'
+
 
 function App() {
 
@@ -18,15 +20,18 @@ function App() {
     const dispatch =useDispatch()
   useEffect(() => {
     dispatch(getSecretWord())
+      //DEBUG
+
     
   }, [])
- 
+
     return (
       <div className="App" data-test='component-app' >
        <h1>Jotto</h1>
-       <Congrats success={success} />
-       <Input success={success} secretWord={secretWord}/>
-       <GuessedWords guessedWords={guessedWords}/>
+          <Reset success={success}></Reset>
+           <Congrats success={success} />
+           <Input success={success} secretWord={secretWord}/>
+           <GuessedWords guessedWords={guessedWords}/>
       <TotalGuesses success={success} number={guessedWords.length}></TotalGuesses>
       </div>
     );
